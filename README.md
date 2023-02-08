@@ -1,0 +1,1 @@
+# telemetria-encoder-dt2
