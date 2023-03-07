@@ -34,6 +34,8 @@ $readings_time = array_column($lm35, 'reading_time');
 // Temperature value in celsius degrees
 $temperature = $celcius[0];
 
+echo $temperature;
+
 $conn->close();
 
 ?>
