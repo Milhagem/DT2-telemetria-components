@@ -1,7 +1,3 @@
-<?php
-  require "db_query.php";
-?>
-
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -19,28 +15,30 @@
 	
 	<div id="playground">		
 		<div id="range">
+      <span>Mínima: </span>
 			<input id="minTemp" type="text" value="0">
-			<input type="range" min="0" max="70" value="24">
+      <span>Máxima: </span>
 			<input id="maxTemp" type="text" value="70">
 		</div>
 		<p id="unit">Celcius C°</p>
 	</div>
 	
 </div>
+  <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous">
+  </script>
   <script>
-      const units = {
-      Celcius: "°C",
-      Fahrenheit: "°F" };
-    
+    const units = {
+    Celcius: "°C",
+    Fahrenheit: "°F" };
     
     const config = {
       minTemp: 0,
       maxTemp: 70,
       unit: "Celcius" };
-    
-    
-    // Change min and max temperature values
 
+    var lm35Temp = <?php require "db_query.php" ?>; 
+
+    // Change min and max temperature values
     const tempValueInputs = document.querySelectorAll("input[type='text']");
     
     tempValueInputs.forEach(input => {
@@ -51,14 +49,12 @@
           return input.value = config[input.id];
         } else {
           config[input.id] = input.value;
-          range[input.id.slice(0, 3)] = config[input.id]; // Update range
           return setTemperature(); // Update temperature
         }
       });
     });
     
     // Switch unit of temperature
-
     const unitP = document.getElementById("unit");
     
     unitP.addEventListener("click", () => {
@@ -68,12 +64,23 @@
     });
     
     // Change temperature
-    const range = document.querySelector("input[type='range']");
-    const temperature = document.getElementById("temperature");
+    setInterval(function() {
+      $.ajax({
+      url : 'db_query.php',
+      type : 'POST',
+      success : function (result) {
+        lm35Temp = result; // Here, you need to use response by PHP file.
+        setTemperature();
+      },
+      error : function () {
+          console.log ('error');
+      }
+    });
+    }, 3000)
     
     function setTemperature() {
-      temperature.style.height = (<?php echo $temperature; ?> - config.minTemp) / (config.maxTemp - config.minTemp) * 100 + "%";
-      temperature.dataset.value = <?php echo $temperature; ?> + units[config.unit];
+      temperature.style.height = (lm35Temp - config.minTemp) / (config.maxTemp - config.minTemp) * 100 + "%";
+      temperature.dataset.value = lm35Temp + units[config.unit];
     }
     
     range.addEventListener("input", setTemperature);
@@ -82,3 +89,4 @@
 
 </body>
 </html>
+
