@@ -16,15 +16,13 @@
 	<div id="playground">		
 		<div id="range">
       <span>Mínima: </span>
-			<input id="minTemp" type="text" value="0">
-      <span>Máxima: </span>
-			<input id="maxTemp" type="text" value="70">
+			<input id="minTemp" type="text" lm35Templue="70">
 		</div>
 		<p id="unit">Celcius C°</p>
 	</div>
 	
 </div>
-  <script src="js/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
   <script>
     const units = {
     Celcius: "°C",
@@ -63,12 +61,12 @@
     });
 
     // Change temperature
-    setInterval(function() {
+    setInterval(function() { // Ajax request at each time interval
       $.ajax({
       url : 'db_query.php',
       type : 'POST',
       success : function (result) {
-      lm35Temp = result; // Here, you need to use response by PHP file.
+      lm35Temp = result;
       setTemperature();
       },
       error : function () {
