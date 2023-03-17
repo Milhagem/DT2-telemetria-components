@@ -1,15 +1,6 @@
 <?php
 
-// REPLACE with your Database hostname
-$hostname = "HOSTNAME";
-// REPLACE with your Database port
-$port = 00000;
-// REPLACE with your Database name
-$dbname = "DB_NAME";
-// REPLACE with Database user
-$username = "DB_USERNAME";
-// REPLACE with Database user password
-$password = "DB_PASSOWRD";
+require "credentials.php";
 
 // Create connection
 $conn = new mysqli($hostname, $username, $password, $dbname, $port);
@@ -23,6 +14,7 @@ $sql = "SELECT celcius, farenheits, reading_time FROM lm35 ORDER BY reading_time
 
 $result = $conn->query($sql);
 
+// Data treatment
 while ($data = $result->fetch_assoc()){
     $lm35[] = $data;
 }
