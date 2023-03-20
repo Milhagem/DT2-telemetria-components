@@ -48,7 +48,7 @@
     <script>
         const speedometerScale = 19;
         const maxSpeed = 36;
-        var speed = <?php require "db_quer.php";?>;
+        var speed = <?php require "db_query.php";?>;
         var currentScale = 1;
 
        setInterval(function() { // Ajax request at each time interval
@@ -74,7 +74,6 @@
             currentScale = parseInt(proportion * speedometerScale);
 
             let activeScales = $('.speedometer-scale').slice(0, currentScale);
-            console.log(activeScales);
             let i = 1;
             activeScales.each(function() {
                 $(this).addClass('active-scale-' + i);
@@ -82,7 +81,6 @@
             });
 
             let inactiveScales = $('.speedometer-scale').slice(currentScale, maxSpeed + 2);
-            console.log(inactiveScales);
             i = currentScale + 1;
             inactiveScales.each(function() {
                 $(this).removeClass('active-scale-' + i);
