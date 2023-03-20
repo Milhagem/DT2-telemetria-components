@@ -1,15 +1,6 @@
 <?php
 
-// REPLACE with your Database hostname
-$hostname = "HOSTNAME";
-// REPLACE with your Database port
-$port = 00000;
-// REPLACE with your Database name
-$dbname = "DB_NAME";
-// REPLACE with Database user
-$username = "DB_USERNAME";
-// REPLACE with Database user password
-$password = "DB_PASSOWRD";
+require "credenditals.php";
 
 // Keep this API Key value to be compatible with the ESP32 code.
 $api_key_value = "API_KEY_VALUE";
