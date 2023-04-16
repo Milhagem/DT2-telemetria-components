@@ -1,1 +1,0 @@
-# DT2-telemetria-lm35
